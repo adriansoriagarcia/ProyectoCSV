@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 public class ProcesarDatos {
     int maximo = Integer.MAX_VALUE;
     int minimo = Integer.MIN_VALUE;
+    ArrayList array = new ArrayList();
     public ProcesarDatos(ComboBox comboBox, ComboBox comboBoxPais){
         String nombreFichero = "share-of-deaths-homicides.csv";
         // Declarar una variable BufferedReader
@@ -31,13 +32,9 @@ public class ProcesarDatos {
                //System.out.println(edad);
                if(valores[0].equals(seleccionPais)){
                    String datos = valores[3];
-                   System.out.println(datos);
-                   ArrayList array = new ArrayList();
+
                    array.add(datos);
-                   EscribirDatos escribir = new EscribirDatos(array, seleccionPais , opciones);
                }
-                
-                //EscribirDatos escribir = new EscribirDatos(pais,edad);
    
                 // Hacer lo que sea con la línea leída
                 // En este ejemplo sólo se muestra por consola
@@ -46,6 +43,9 @@ public class ProcesarDatos {
                 texto = br.readLine();
                 
             }
+            //System.out.println(array);
+            //System.out.println("tamaño array " + array.size());
+            EscribirDatos escribir = new EscribirDatos(array, seleccionPais , opciones);
         }
         // Captura de excepción por fichero no encontrado
         catch (FileNotFoundException ex) {

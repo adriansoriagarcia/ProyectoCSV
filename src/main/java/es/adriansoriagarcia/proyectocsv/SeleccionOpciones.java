@@ -10,6 +10,7 @@ public class SeleccionOpciones extends Pane{
     public SeleccionOpciones(){
         // Crear un ArrayList con el contenido que se desee para el ComboBox
         ArrayList<String> paises = new ArrayList();
+        
         paises.add("Afghanistan");
         paises.add("Africa");
         paises.add("African Region");
@@ -170,9 +171,12 @@ public class SeleccionOpciones extends Pane{
         paises.add("");
         paises.add("");
         paises.add("");
+        
+        
 
         // Crear un ComboBox con el contenido de la lista
         ComboBox<String> comboBoxPais = new ComboBox(FXCollections.observableList(paises));
+        comboBoxPais.getSelectionModel().select("Selecciona el país.");
         comboBoxPais.setLayoutX(100);
         this.getChildren().add(comboBoxPais);
         
@@ -184,6 +188,7 @@ public class SeleccionOpciones extends Pane{
 
         // Crear un ComboBox con el contenido de la lista
         ComboBox<String> comboBox = new ComboBox(FXCollections.observableList(lista));
+        comboBox.getSelectionModel().select("Selecciona el calculo.");
         this.getChildren().add(comboBox);
 
         
