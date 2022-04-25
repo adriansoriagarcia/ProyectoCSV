@@ -1,11 +1,7 @@
 package es.adriansoriagarcia.proyectocsv;
 
-import java.util.ArrayList;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -23,8 +19,11 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
         
-        SeleccionOpciones seleccion = new SeleccionOpciones();
-        paneRoot.getChildren().add(seleccion);
+        //SeleccionOpciones seleccion = new SeleccionOpciones();
+        //paneRoot.getChildren().add(seleccion);
+        
+        ProcesarDatos procesar = new ProcesarDatos();
+        paneRoot.getChildren().add(procesar);
         
     }
 
