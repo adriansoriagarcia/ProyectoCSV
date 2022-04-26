@@ -6,37 +6,28 @@ import java.util.ArrayList;
 
 
 public class EscribirDatos {
-    public EscribirDatos(ArrayList datos, String pais, String opciones){
+    public EscribirDatos(ArrayList datos, ArrayList fechas, String pais, String opciones){
         String nombreFichero = "nuevo.csv";
-        ArrayList<String> valores = datos;
+        ArrayList<String> porcentajes = datos;
+        ArrayList listaFechas = fechas;
         String pais1 = pais;
         BufferedWriter bw = null;
         String resultado = "";
         
-        double maximo = Double.parseDouble( valores.get(0)); // Declaramos e inicializamos el máximo.
-	double minimo = Double.parseDouble( valores.get(0)); // Declaramos e inicializamos el máximo.
-        double media = 0.0;
-        /*for (int i=0;i<valores.size();i++) {
-      
-            //System.out.println(valores.get(i));
-            if (Double.parseDouble(valores.get(i)) > maximo  )
-                maximo = Double.parseDouble(valores.get(i));
-            if (Double.parseDouble(valores.get(i)) < minimo )
-                minimo =Double.parseDouble(valores.get(i));
-          
-        }*/
+        //System.out.println( "tamaño lista fechas " + listaFechas.size());
+        //System.out.println( "tamaño lista porcentajes " + porcentajes.size());
         
-        //System.out.println("La máximo de la lista es " + maximo);
-	//System.out.println("La mínimo de la lista es " + minimo);
- 
-        //System.out.println(valores.get(3));
-        //System.out.println("tamaño array " + valores.size());
+        double maximo = Double.parseDouble(porcentajes.get(0)); // Declaramos e inicializamos el máximo.
+	double minimo = Double.parseDouble(porcentajes.get(0)); // Declaramos e inicializamos el máximo.
+        double media = 0.0;
         
         switch (opciones) {
             case "Máximo":
-                for (int i=0;i<valores.size();i++) {
-                    if (Double.parseDouble(valores.get(i)) > maximo  )
-                        maximo = Double.parseDouble(valores.get(i));
+                for (int i=0;i<porcentajes.size();i++) {
+                    if (Double.parseDouble(porcentajes.get(i)) > maximo  ){
+                        //System.out.println(i);
+                        maximo = Double.parseDouble(porcentajes.get(i));    
+                    }
                     double roundDbl = Math.round(maximo*100.0)/100.0;
                     resultado = "El porcentaje maximo de fallecidos es: " +  roundDbl + "%";
                     
@@ -44,9 +35,11 @@ public class EscribirDatos {
                 System.out.println(resultado);
                 break;
             case "Mínimo":
-                for (int i=0;i<valores.size();i++) {
-                    if (Double.parseDouble(valores.get(i)) < minimo )
-                        minimo =Double.parseDouble(valores.get(i));
+                for (int i=0;i<porcentajes.size();i++) {
+                    if (Double.parseDouble(porcentajes.get(i)) < minimo ){
+                        System.out.println(i);
+                        minimo =Double.parseDouble(porcentajes.get(i));
+                    }
                     double roundDbl = Math.round(minimo*100.0)/100.0;
                     resultado = "El porcentaje minimo de fallecidos es: " +  roundDbl + "%";
                     
@@ -54,11 +47,11 @@ public class EscribirDatos {
                 System.out.println(resultado);
                 break;
             case "Media":
-                for (int i=0;i<valores.size();i++) {
-                    media = media + Double.parseDouble(valores.get(i));
+                for (int i=0;i<porcentajes.size();i++) {
+                    media = media + Double.parseDouble(porcentajes.get(i));
                 }
                 System.out.println("suma de media " + media);
-                media = media / valores.size();
+                media = media / porcentajes.size();
                 double roundDbl = Math.round(media*100.0)/100.0;
                 resultado = "El porcentaje medio de fallecidos es: " +  roundDbl + "%";
                 System.out.println(resultado);

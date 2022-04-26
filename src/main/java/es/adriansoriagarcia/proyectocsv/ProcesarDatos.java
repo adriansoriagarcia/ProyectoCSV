@@ -12,7 +12,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 
 public class ProcesarDatos extends Pane{
-    static ArrayList array = new ArrayList();
+    static ArrayList arrayMedia = new ArrayList();
+    static ArrayList arrayFechas = new ArrayList();
     ArrayList listaPaises = new ArrayList();
     ArrayList paisesOrdenados = new ArrayList();
     static Datos datos1 = new Datos();
@@ -124,8 +125,6 @@ public class ProcesarDatos extends Pane{
         }
     }
     public static ArrayList CargarDatos(ComboBox comboBoxCalculo, ComboBox comboBoxPais){
-        
-        
         try {
             String opciones = (String) comboBoxCalculo.getValue();
             String seleccionPais = (String) comboBoxPais.getValue();
@@ -134,13 +133,15 @@ public class ProcesarDatos extends Pane{
             for (int i=0;i<datos1.getListaDatos().size();i++) {
                 //System.out.println(datos1.getListaDatos().get(i).getPais());
                  if(datos1.getListaDatos().get(i).getPais().equals(seleccionPais)){
-                     String datos = Float.toString(datos1.getListaDatos().get(i).getFallecidos());
-
-                     array.add(datos);
+                     String datosMedia = Float.toString(datos1.getListaDatos().get(i).getFallecidos());
+                     arrayMedia.add(datosMedia);
+                     
+                     int datosFechas = datos1.getListaDatos().get(i).getYear();
+                     arrayFechas.add(datosFechas);
                  }
             }
 
-            EscribirDatos escribir = new EscribirDatos(array, seleccionPais , opciones);
+            EscribirDatos escribir = new EscribirDatos(arrayMedia, arrayFechas, seleccionPais , opciones);
         }
         catch (Exception ex) {
             System.out.println("Error al seleccionar las opciones");
@@ -151,11 +152,8 @@ public class ProcesarDatos extends Pane{
             alert.showAndWait();
             ex.printStackTrace();
         }
-        
-        
-        
-        //System.out.println(array);
-        return array;
+        //System.out.println(arrayFechas);
+        return arrayMedia;
         
     }
 }
