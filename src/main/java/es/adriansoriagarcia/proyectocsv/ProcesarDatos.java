@@ -4,59 +4,76 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import static javafx.scene.input.KeyCode.T;
 import javafx.scene.layout.Pane;
 
 public class ProcesarDatos extends Pane{
     static ArrayList array = new ArrayList();
-    ArrayList prueba = new ArrayList();
-    ArrayList paises = new ArrayList();
-    static ArrayList <String> informacion  = new ArrayList();
-    Datos datosPrueba =new Datos();
-    static String[] valores;
-    static String texto;
-    static BufferedReader br;
-    //ComboBox comboBox, ComboBox comboBoxPais
+    ArrayList listaPaises = new ArrayList();
+    ArrayList paisesOrdenados = new ArrayList();
+    static Datos datos1 = new Datos();
     public ProcesarDatos(){
         String nombreFichero = "share-of-deaths-homicides.csv";
         // Declarar una variable BufferedReader
-        br = null;
+        BufferedReader br = null;
         try {
             // Crear un objeto BufferedReader al que se le pasa 
             //   un objeto FileReader con el nombre del fichero
-            br = new BufferedReader(new FileReader(nombreFichero));
+             br = new BufferedReader(new FileReader(nombreFichero));
             // Leer la primera línea, guardando en un String
-            texto = br.readLine();
+             br.readLine();
             // Repetir mientras no se llegue al final del fichero
 
             //String opciones = (String) comboBox.getValue();
             //String seleccionPais = (String) comboBoxPais.getValue();
-            Datos datos1 = new Datos();
+            
+            
+            String texto =br.readLine();
             while(texto != null) {
-               valores = texto.split(",");
-               
-               String pais = valores[0];
-               String porcentaje = valores[3];
-               prueba.add(pais);
-               
-               //informacion.addAll(0, porcentaje);
-               //datosPrueba.getListaDatos().addAll(prueba);
-               //String edad = valores[3];
-               //System.out.println(pais.equals(prueba));
-               //System.out.println(pais);
-               
-               /*if(valores[0].equals(seleccionPais)){
-                   String datos = valores[3];
-
-                   array.add(datos);
+                
+               String[] valores = texto.split(",");
+               /*if(valores.length < 4 || valores.equals(null)){
+                  //texto =br.readLine(); 
+                  continue;
                }*/
+               //System.out.println(valores.length);
+               String pais = valores[0];
+               String codigo = valores[1];
+               String year = valores[2];
+               String anio="";
+               
+               if(year.isEmpty() ||year.equals(" and Central Asia"+'"') || year.equals(" and Oceania"+'"')){
+                   //System.out.println("coincide el año con texto");
+                  texto = br.readLine();
+                  continue;
+               }else{
+                   
+                   anio = year;
+               }
+               
+               String porcentaje = valores[3];
+               if(porcentaje.equals(" and Central Asia"+'"') || porcentaje.isEmpty()){
+                   //System.out.println("coincide el porcentaje con texto");
+                  texto = br.readLine();
+                  continue;
+               }
 
-   
+               Dato dato1 = new Dato();
+               dato1.setPais(pais);
+               dato1.setCodigo(codigo);
+               dato1.setYear(Integer.parseInt(anio));
+               dato1.setFallecidos(Float.valueOf(porcentaje));
+               
+               datos1.getListaDatos().add(dato1);
+  
+               
+               listaPaises.add(pais);
+               
+
                 // Hacer lo que sea con la línea leída
                 // En este ejemplo sólo se muestra por consola
                 //System.out.println(texto);
@@ -64,22 +81,23 @@ public class ProcesarDatos extends Pane{
                 texto = br.readLine();
                 
             }
-
-            Set<String> hashSet = new HashSet<String>(prueba);
-            prueba.clear();
-            prueba.addAll(hashSet);
             
-            for (Object s : prueba) {
+            
+            //Eliminar elementos duplicados
+            Set<String> hashSet = new HashSet<String>(listaPaises);
+            listaPaises.clear();
+            listaPaises.addAll(hashSet);
+            
+            for (Object s : listaPaises) {
                 //System.out.println(s);
-                paises.add(s);
+                paisesOrdenados.add(s);
             }
-            Collections.sort(paises);
-            //System.out.println(paises);
-            SeleccionOpciones seleccion = new SeleccionOpciones(paises);
+            //Ordenar lista de paises
+            Collections.sort(paisesOrdenados);
+            //System.out.println(paisesOrdenados);
+            SeleccionOpciones seleccion = new SeleccionOpciones(paisesOrdenados);
             this.getChildren().add(seleccion);
-            //System.out.println(datosPrueba.getListaDatos());
-            //System.out.println("tamaño array " + array.size());
-            //EscribirDatos escribir = new EscribirDatos(array, seleccionPais , opciones);
+
         }
         // Captura de excepción por fichero no encontrado
         catch (FileNotFoundException ex) {
@@ -106,13 +124,36 @@ public class ProcesarDatos extends Pane{
         }
     }
     public static ArrayList CargarDatos(ComboBox comboBoxCalculo, ComboBox comboBoxPais){
-        String opciones = (String) comboBoxCalculo.getValue();
-        String seleccionPais = (String) comboBoxPais.getValue();
         
-        //System.out.println(informacion);
+        
+        try {
+            String opciones = (String) comboBoxCalculo.getValue();
+            String seleccionPais = (String) comboBoxPais.getValue();
+            System.out.println(opciones);
+            System.out.println(seleccionPais);
+            for (int i=0;i<datos1.getListaDatos().size();i++) {
+                //System.out.println(datos1.getListaDatos().get(i).getPais());
+                 if(datos1.getListaDatos().get(i).getPais().equals(seleccionPais)){
+                     String datos = Float.toString(datos1.getListaDatos().get(i).getFallecidos());
 
+                     array.add(datos);
+                 }
+            }
+
+            EscribirDatos escribir = new EscribirDatos(array, seleccionPais , opciones);
+        }
+        catch (Exception ex) {
+            System.out.println("Error al seleccionar las opciones");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Info");
+            alert.setContentText("Selecciona ambas opciones");
+            alert.showAndWait();
+            ex.printStackTrace();
+        }
         
-        //EscribirDatos escribir = new EscribirDatos(array, seleccionPais , opciones);
+        
+        
         //System.out.println(array);
         return array;
         

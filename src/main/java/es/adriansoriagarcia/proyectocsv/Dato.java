@@ -7,12 +7,12 @@ public class Dato {
     private float fallecidos;
 
     
-    public Dato(String pais, String codigo, int year, float fallecidos){
+    /*public Dato(String pais, String codigo, int year){
         this.pais = pais;
         this.codigo = codigo;
         this.year = year;
         this.fallecidos = fallecidos;
-    }
+    }*/
 
     public String getPais(){
         return pais;
@@ -44,6 +44,20 @@ public class Dato {
 
     public void setFallecidos(Float fallecidos){
         this.fallecidos = fallecidos;
+    }
+    
+    @Override
+    public String toString(){
+        String r = "";
+        r += "Pais: " + pais + "\n";
+        r += "Codigo: " + codigo + "\n";
+        r += "Año: " + year + "\n";
+        r += "Fallecidos: " + fallecidos + "\n";
+        return r;
+    }
+
+    void getPais(String valore) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

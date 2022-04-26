@@ -32,8 +32,9 @@ public class SeleccionOpciones extends Pane{
         this.getChildren().add(boton);
         boton.setLayoutY(100);
         boton.setOnAction((t) -> {
-            //ProcesarDatos procesar = new ProcesarDatos(comboBox,comboBoxPais);
             ProcesarDatos.CargarDatos(comboBoxCalculo,comboBoxPais);
+            //System.out.println(comboBoxCalculo.getValue());
+            //System.out.println(comboBoxPais.getValue());
             
         });
     }
