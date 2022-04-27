@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
@@ -127,13 +129,16 @@ public class ProcesarDatos extends Pane{
                 ex.printStackTrace();
             }
         }
+        
     }
     public static ArrayList CargarDatos(ComboBox comboBoxCalculo, ComboBox comboBoxPais){
+        
         try {
             String opciones = (String) comboBoxCalculo.getValue();
             String seleccionPais = (String) comboBoxPais.getValue();
             System.out.println(opciones);
             System.out.println(seleccionPais);
+
             for (int i=0;i<datos1.getListaDatos().size();i++) {
                 //System.out.println(datos1.getListaDatos().get(i).getPais());
                  if(datos1.getListaDatos().get(i).getPais().equals(seleccionPais)){
@@ -147,6 +152,7 @@ public class ProcesarDatos extends Pane{
             //System.out.println(arrayMedia);
 
             EscribirDatos escribir = new EscribirDatos(arrayMedia, arrayFechas, seleccionPais , opciones);
+            //this.getChildren().add(escribir);
             //Una vez enviado los datos a la clase EscribirDatos eliminamos el contenido de los array
             //para que no se concatene los datos que contenia con los nuevos
             arrayMedia.clear();
@@ -162,6 +168,7 @@ public class ProcesarDatos extends Pane{
             ex.printStackTrace();
         }
         //System.out.println(arrayFechas);
+        
         return arrayMedia;
         
     }

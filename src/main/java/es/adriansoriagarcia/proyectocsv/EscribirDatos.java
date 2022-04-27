@@ -3,9 +3,10 @@ package es.adriansoriagarcia.proyectocsv;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import javafx.scene.layout.Pane;
 
 
-public class EscribirDatos {
+public class EscribirDatos extends Pane{
     public EscribirDatos(ArrayList datos, ArrayList fechas, String pais, String opciones){
         String nombreFichero = "nuevo.csv";
         ArrayList<String> porcentajes = datos;
@@ -14,7 +15,7 @@ public class EscribirDatos {
         BufferedWriter bw = null;
         String resultado = "";
         int valorI = 0;
-        int fecha = 0;
+        int fecha ;
         
         System.out.println(porcentajes);
         System.out.println(listaFechas);
@@ -25,7 +26,7 @@ public class EscribirDatos {
         double maximo = Double.parseDouble(porcentajes.get(0)); // Declaramos e inicializamos el máximo.
 	double minimo = Double.parseDouble(porcentajes.get(0)); // Declaramos e inicializamos el máximo.
         double media = 0.0;
-
+        double roundDbl;
         switch (opciones) {
             case "Máximo":
                 for (int i=0;i<porcentajes.size();i++) {
@@ -33,7 +34,7 @@ public class EscribirDatos {
                         maximo = Double.parseDouble(porcentajes.get(i)); 
                         valorI=i;
                     }
-                    double roundDbl = Math.round(maximo*100.0)/100.0;
+                    roundDbl = Math.round(maximo*100.0)/100.0;
                     resultado = "El porcentaje maximo de fallecidos es: " +  roundDbl + " % ";
                     
                 }
@@ -48,7 +49,7 @@ public class EscribirDatos {
                         minimo =Double.parseDouble(porcentajes.get(i));
                         valorI=i;
                     }
-                    double roundDbl = Math.round(minimo*100.0)/100.0;
+                    roundDbl = Math.round(minimo*100.0)/100.0;
                     resultado = "El porcentaje minimo de fallecidos es: " +  roundDbl + " % ";
                     
                 }
@@ -69,12 +70,13 @@ public class EscribirDatos {
                 System.out.println(listaFechas.get(listaFechas.size()-1));
                 
                 media = media / porcentajes.size();
-                double roundDbl = Math.round(media*100.0)/100.0;
+                roundDbl = Math.round(media*100.0)/100.0;
                 resultado = "El porcentaje medio de fallecidos es: " +  roundDbl + " % " + " entre los años "
                  + listaFechas.get(0) + " y " + listaFechas.get(listaFechas.size()-1);
                 System.out.println(resultado);
                 break;
         }
+        
         try {
             //Crear un objeto BufferedWriter. Si ya existe el fichero, 
             //  se borra automáticamente su contenido anterior.
@@ -99,6 +101,8 @@ public class EscribirDatos {
                 ex.printStackTrace();
             }
         }
+
+        MuestraDato.label.setText(resultado);
     }
     
 

@@ -2,6 +2,7 @@ package es.adriansoriagarcia.proyectocsv;
 
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
@@ -9,7 +10,8 @@ import javafx.scene.layout.HBox;
 public class SeleccionOpciones extends HBox{
     public SeleccionOpciones(ArrayList paises){
         //System.out.println(paises);
-
+        this.setAlignment(Pos.CENTER);
+        this.setSpacing(30);
         // Crear un ComboBox con el contenido de la lista
         ComboBox<String> comboBoxPais = new ComboBox(FXCollections.observableList(paises));
         comboBoxPais.getSelectionModel().select("Selecciona el país.");
