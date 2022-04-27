@@ -85,18 +85,22 @@ public class ProcesarDatos extends Pane{
             
             
             //Eliminar elementos duplicados
+            //HashSet añade se encargar de añadir todos los elementos sin duplicar  a un conjunto.
             Set<String> hashSet = new HashSet<String>(listaPaises);
+            //Eliminamos el contenido de la listaPaises.
             listaPaises.clear();
+            //Añadimos a la listaPaises el contenido guardado anteriormente en el HasSet pero esta sin ordenar.
             listaPaises.addAll(hashSet);
             
-            for (Object s : listaPaises) {
+            //En el for recorremos la listaPaises y la añadimos a una nueva lista.
+            /*for (Object s : listaPaises) {
                 //System.out.println(s);
                 paisesOrdenados.add(s);
-            }
+            }*/
             //Ordenar lista de paises
-            Collections.sort(paisesOrdenados);
-            //System.out.println(paisesOrdenados);
-            SeleccionOpciones seleccion = new SeleccionOpciones(paisesOrdenados);
+            //Collections.sort(paisesOrdenados);
+            Collections.sort(listaPaises);
+            SeleccionOpciones seleccion = new SeleccionOpciones(listaPaises);
             this.getChildren().add(seleccion);
 
         }
@@ -140,8 +144,13 @@ public class ProcesarDatos extends Pane{
                      arrayFechas.add(datosFechas);
                  }
             }
+            //System.out.println(arrayMedia);
 
             EscribirDatos escribir = new EscribirDatos(arrayMedia, arrayFechas, seleccionPais , opciones);
+            //Una vez enviado los datos a la clase EscribirDatos eliminamos el contenido de los array
+            //para que no se concatene los datos que contenia con los nuevos
+            arrayMedia.clear();
+            arrayFechas.clear();
         }
         catch (Exception ex) {
             System.out.println("Error al seleccionar las opciones");

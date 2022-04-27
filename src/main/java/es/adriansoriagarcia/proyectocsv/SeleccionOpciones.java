@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
 
-public class SeleccionOpciones extends Pane{
+public class SeleccionOpciones extends HBox{
     public SeleccionOpciones(ArrayList paises){
         //System.out.println(paises);
 
@@ -39,3 +39,4 @@ public class SeleccionOpciones extends Pane{
         });
     }
 }
+
