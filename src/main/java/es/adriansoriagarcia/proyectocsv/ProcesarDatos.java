@@ -7,19 +7,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
-public class ProcesarDatos extends Pane{
+public class ProcesarDatos extends VBox{
+    
     static ArrayList arrayMedia = new ArrayList();
     static ArrayList arrayFechas = new ArrayList();
     ArrayList listaPaises = new ArrayList();
     ArrayList paisesOrdenados = new ArrayList();
     static Datos datos1 = new Datos();
     public ProcesarDatos(){
+        this.setAlignment(Pos.CENTER);
+        this.setSpacing(30);
+        //Variable que contiene el nombre del archivo CSV
         String nombreFichero = "share-of-deaths-homicides.csv";
         // Declarar una variable BufferedReader
         BufferedReader br = null;
@@ -30,11 +33,7 @@ public class ProcesarDatos extends Pane{
             // Leer la primera línea, guardando en un String
              br.readLine();
             // Repetir mientras no se llegue al final del fichero
-
-            //String opciones = (String) comboBox.getValue();
-            //String seleccionPais = (String) comboBoxPais.getValue();
-            
-            
+               
             String texto =br.readLine();
             while(texto != null) {
                 
@@ -43,14 +42,13 @@ public class ProcesarDatos extends Pane{
                   //texto =br.readLine(); 
                   continue;
                }*/
-               //System.out.println(valores.length);
                String pais = valores[0];
                String codigo = valores[1];
                String year = valores[2];
                String anio="";
                
                if(year.isEmpty() ||year.equals(" and Central Asia"+'"') || year.equals(" and Oceania"+'"')){
-                   //System.out.println("coincide el año con texto");
+
                   texto = br.readLine();
                   continue;
                }else{
@@ -60,7 +58,7 @@ public class ProcesarDatos extends Pane{
                
                String porcentaje = valores[3];
                if(porcentaje.equals(" and Central Asia"+'"') || porcentaje.isEmpty()){
-                   //System.out.println("coincide el porcentaje con texto");
+
                   texto = br.readLine();
                   continue;
                }
@@ -73,13 +71,10 @@ public class ProcesarDatos extends Pane{
                
                datos1.getListaDatos().add(dato1);
   
-               
                listaPaises.add(pais);
-               
-
                 // Hacer lo que sea con la línea leída
                 // En este ejemplo sólo se muestra por consola
-                //System.out.println(texto);
+
                 // Leer la siguiente línea
                 texto = br.readLine();
                 
@@ -87,22 +82,17 @@ public class ProcesarDatos extends Pane{
             
             
             //Eliminar elementos duplicados
-            //HashSet añade se encargar de añadir todos los elementos sin duplicar  a un conjunto.
+            //HashSet se encarga de añadir todos los elementos sin duplicar  a un conjunto.
             Set<String> hashSet = new HashSet<String>(listaPaises);
             //Eliminamos el contenido de la listaPaises.
             listaPaises.clear();
             //Añadimos a la listaPaises el contenido guardado anteriormente en el HasSet pero esta sin ordenar.
             listaPaises.addAll(hashSet);
-            
-            //En el for recorremos la listaPaises y la añadimos a una nueva lista.
-            /*for (Object s : listaPaises) {
-                //System.out.println(s);
-                paisesOrdenados.add(s);
-            }*/
             //Ordenar lista de paises
-            //Collections.sort(paisesOrdenados);
             Collections.sort(listaPaises);
+            //Declaramos el objeto seleccion y le pasamos por parametro la lista de paises.
             SeleccionOpciones seleccion = new SeleccionOpciones(listaPaises);
+            //Lo añadimos al panel.
             this.getChildren().add(seleccion);
 
         }
@@ -129,24 +119,32 @@ public class ProcesarDatos extends Pane{
                 ex.printStackTrace();
             }
         }
-        
     }
     public static ArrayList CargarDatos(ComboBox comboBoxCalculo, ComboBox comboBoxPais){
         
         try {
+            //Variable que contiene la opcion de calculo seleccionada.
             String opciones = (String) comboBoxCalculo.getValue();
+            //Variable que contiene el pais seleccionado.
             String seleccionPais = (String) comboBoxPais.getValue();
             System.out.println(opciones);
             System.out.println(seleccionPais);
-
+            
+            //Recorremos todos los datos de la lista.
             for (int i=0;i<datos1.getListaDatos().size();i++) {
                 //System.out.println(datos1.getListaDatos().get(i).getPais());
+                //Si coincide el pais de la lista con el pais seleccionado.
                  if(datos1.getListaDatos().get(i).getPais().equals(seleccionPais)){
+                     //Guardamos todos los porcentajes del pais
                      String datosMedia = Float.toString(datos1.getListaDatos().get(i).getFallecidos());
+                     //Añadimos al array siguiente.
                      arrayMedia.add(datosMedia);
                      
+                     //Guardamos todas las fechas del pais
                      int datosFechas = datos1.getListaDatos().get(i).getYear();
+                     //Añadimos al array siguiente.
                      arrayFechas.add(datosFechas);
+                     
                  }
             }
             //System.out.println(arrayMedia);

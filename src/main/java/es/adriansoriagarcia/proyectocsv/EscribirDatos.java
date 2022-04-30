@@ -3,30 +3,28 @@ package es.adriansoriagarcia.proyectocsv;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import javafx.scene.layout.Pane;
 
 
-public class EscribirDatos extends Pane{
+public class EscribirDatos {
     public EscribirDatos(ArrayList datos, ArrayList fechas, String pais, String opciones){
-        String nombreFichero = "nuevo.csv";
-        ArrayList<String> porcentajes = datos;
-        ArrayList listaFechas = fechas;
-        String pais1 = pais;
-        BufferedWriter bw = null;
-        String resultado = "";
-        int valorI = 0;
-        int fecha ;
+        String nombreFichero = "nuevo.csv"; // Declaramos e inicializamos la variable nombreFichero.
+        ArrayList<String> porcentajes = datos; // Declaramos e inicializamos el arrayList de los porcentajes.
+        ArrayList listaFechas = fechas; // Declaramos e inicializamos el arrayList de los años.
+        BufferedWriter bw = null; // Declaramos e inicializamos la variable bw usada para escribir el texto.
+        String resultado = ""; // Declaramos e inicializamos la variable resultado.
+        int valorI = 0; // Declaramos e inicializamos la variable valorI(es el valor de la i en el for)
+        int fecha ; // Declaramos la variable fecha que va a contener la fecha de cada operación.
         
         System.out.println(porcentajes);
         System.out.println(listaFechas);
         //System.out.println( "tamaño lista fechas " + listaFechas.size());
         //System.out.println( "tamaño lista porcentajes " + porcentajes.size());
-        //System.out.println(porcentajes.size());
         
         double maximo = Double.parseDouble(porcentajes.get(0)); // Declaramos e inicializamos el máximo.
 	double minimo = Double.parseDouble(porcentajes.get(0)); // Declaramos e inicializamos el máximo.
-        double media = 0.0;
-        double roundDbl;
+        double media = 0.0;// Declaramos e inicializamos la media.
+        double roundDbl; // Declaramos una variable para redondear el resultado.
+        
         switch (opciones) {
             case "Máximo":
                 for (int i=0;i<porcentajes.size();i++) {
@@ -64,9 +62,6 @@ public class EscribirDatos extends Pane{
                 }
                 //System.out.println("suma de media " + media);
                 
-                //Set<String> hashSet = new HashSet<String>(listaFechas);
-                //listaFechas.clear();
-                //listaFechas.addAll(hashSet);
                 System.out.println(listaFechas.get(listaFechas.size()-1));
                 
                 media = media / porcentajes.size();
@@ -82,7 +77,7 @@ public class EscribirDatos extends Pane{
             //  se borra automáticamente su contenido anterior.
             bw = new BufferedWriter(new FileWriter(nombreFichero));
             //Escribir en el fichero el texto con un salto de línea
-            bw.write(pais1 + "\n" + resultado);
+            bw.write(pais + "\n" + resultado);
         }
         // Comprobar si se ha producido algún error
         catch(Exception ex) {
@@ -101,8 +96,7 @@ public class EscribirDatos extends Pane{
                 ex.printStackTrace();
             }
         }
-
-        MuestraDato.label.setText(resultado);
+        MuestraDato.text.setText(resultado);
     }
     
 

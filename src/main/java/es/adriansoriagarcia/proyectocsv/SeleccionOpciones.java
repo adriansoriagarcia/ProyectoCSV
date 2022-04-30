@@ -12,6 +12,7 @@ public class SeleccionOpciones extends HBox{
         //System.out.println(paises);
         this.setAlignment(Pos.CENTER);
         this.setSpacing(30);
+
         // Crear un ComboBox con el contenido de la lista
         ComboBox<String> comboBoxPais = new ComboBox(FXCollections.observableList(paises));
         comboBoxPais.getSelectionModel().select("Selecciona el país.");
@@ -28,8 +29,11 @@ public class SeleccionOpciones extends HBox{
         ComboBox<String> comboBoxCalculo = new ComboBox(FXCollections.observableList(lista));
         comboBoxCalculo.getSelectionModel().select("Selecciona el calculo.");
         this.getChildren().add(comboBoxCalculo);
-
         
+//Instantiating the Lighting class  
+      
+
+        //Boton encargardo de pasar por parametros a la clase ProcesarDatos las opciones seleccionadas.
         Button boton = new Button("Calcular");
         this.getChildren().add(boton);
         boton.setLayoutY(100);
@@ -41,4 +45,3 @@ public class SeleccionOpciones extends HBox{
         });
     }
 }
-

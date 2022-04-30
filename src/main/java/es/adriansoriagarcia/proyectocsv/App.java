@@ -3,6 +3,7 @@ package es.adriansoriagarcia.proyectocsv;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -20,16 +21,19 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
         paneRoot.setAlignment(Pos.TOP_CENTER);
-        paneRoot.setSpacing(30);
-        //SeleccionOpciones seleccion = new SeleccionOpciones();
-        //paneRoot.getChildren().add(seleccion);
+        paneRoot.setSpacing(50);
         
+        //Declaramos y creamos el objeto procesar.
         ProcesarDatos procesar = new ProcesarDatos();
+        //Añadimos el objeto creado anteriormente al panel.
         paneRoot.getChildren().add(procesar);
         
+        //Declaramos y creamos el objeto muestraDato.
         MuestraDato muestraDato = new MuestraDato();
-        muestraDato.setLayoutY(100);
+        //Añadimos el objeto creado anteriormente al panel.
         paneRoot.getChildren().add(muestraDato);
+        
+        
         
     }
 
